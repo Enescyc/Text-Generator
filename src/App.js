@@ -13,9 +13,10 @@ function App() {
 
 
 
+
     return (
 
-        <div className="flex-col flex justify-center items-center  w-full h-full bg-slate-700 min-h-screen">
+        <div className="flex-col flex justify-center items-center  w-full h-full bg-slate-700 min-h-screen text-emerald-500 text-md font-mono">
             <h1 className={"text-4xl text-white text-center font-bold mt-32 "}>Welcome The Text Generator</h1>
             <div className={"flex flex-col justify-center items-center h-full lg:w-1/2 px-6 py-6"}>
                 <div className={"flex flex-col"}>
@@ -24,18 +25,19 @@ function App() {
                                placeholder={"Choose Number"}/>
                         <label htmlFor={"format"} className={"px-2 py-2 text-emerald-500"}>Choose a Format: </label>
                         <select onChange={e=> setSelection(e.target.value)} name="format" className={"px-4 py-2 bg-white text-emerald-500 m-4 p-4 self-end"}>
-                            <option>
+                            <option value={"html"}>
                                 HTML
                             </option>
-                            <option>
+                            <option value={"text"}>
                                 Text
                             </option>
                         </select>
                     </form>
 
                 </div>
-                <div className={"w-full h-full"}>
-                    {selection==="HTML" ? text.map(p => <text className={"text-emerald-500 text-md w-full" }> {"<p>"+p+"</p>"}</text>) : <text className={"text-lg text-emerald-500 "}>{text}</text> }
+                <div className={"w-full h-full pt-10"}>
+
+                    {selection.toLowerCase() ==="html" && text ? text.map((item,index) => <p key={index}>{"<p>"+item+"</p>"}</p>) : <p>{text}</p>  }
 
                 </div>
             </div>
