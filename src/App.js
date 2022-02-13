@@ -6,10 +6,17 @@ function App() {
     const [paragraphs, setParagraphs] = useState(4);
 
 
-    useEffect(() => {
-        let URL = process.env.REACT_APP_API_BASE_URL+process.env.REACT_APP_PARAGRAPHS+paragraphs+process.env.REACT_APP_FORMAT+selection;
-        axios.get(URL).then(res => setText(res.data))
-    },[paragraphs]);
+
+    useEffect((state) => {
+
+            try {
+                let URL = process.env.REACT_APP_API_BASE_URL+process.env.REACT_APP_PARAGRAPHS+paragraphs+process.env.REACT_APP_FORMAT+selection;
+                 axios.get(URL).then(res => setText(res.data))
+            }
+            catch (e) {alert(e.message())}
+
+
+    },[paragraphs,selection]);
 
 
 
@@ -25,10 +32,10 @@ function App() {
                                placeholder={"Choose Number"}/>
                         <label htmlFor={"format"} className={"px-2 py-2 text-emerald-500"}>Choose a Format: </label>
                         <select onChange={e=> setSelection(e.target.value)} name="format" className={"px-4 py-2 bg-white text-emerald-500 m-4 p-4 self-end"}>
-                            <option value={"html"}>
+                            <option value={"HTML"}>
                                 HTML
                             </option>
-                            <option value={"text"}>
+                            <option value={"TEXT"}>
                                 Text
                             </option>
                         </select>
@@ -37,7 +44,12 @@ function App() {
                 </div>
                 <div className={"w-full h-full pt-10"}>
 
-                    {selection.toLowerCase() ==="html" && text ? text.map((item,index) => <p key={index}>{"<p>"+item+"</p>"}</p>) : <p>{text}</p>  }
+                    {
+                        text.length >1 ?
+                            selection.toLowerCase() ==="html" ?  text.map((item,index) => <p key={index}>{"<p>"+item+"</p>"}</p>) : <p>{text}</p> : console.log(text)
+                    }
+
+
 
                 </div>
             </div>
